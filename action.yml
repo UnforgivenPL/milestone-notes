@@ -1,11 +1,12 @@
 name: "Milestone Notes"
-description: "Create a .md file with closed issues based on a milestone that matches a given string."
+description: "Create an .md file with closed issues based on a milestone number or regexp matching its title."
 inputs:
-  version-number:
-    description: "Version number"
-    required: true
+  milestone-number:
+    description: "Milestone number. Either this or match-milestone must be provided. Has precedence if both are."
+    required: false
+    default: "-"
   match-milestone:
-    description: "Regular expression to match milestone title. By default milestones that start with version number."
+    description: "Regular expression to match milestone title. Either this or milestone-number must be provided."
     required: false
     default: "-"
   repository:
@@ -27,9 +28,9 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.version-number }}
-    - ${{ inputs.repository }}
+    - ${{ inputs.milestone-number }}
     - ${{ inputs.match-milestone }}
+    - ${{ inputs.repository }}
     - ${{ inputs.labels }}
     - ${{ inputs.ignore }}
     - ${{ inputs.filename }}
