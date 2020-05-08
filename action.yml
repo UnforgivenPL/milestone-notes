@@ -10,18 +10,18 @@ inputs:
     required: false
     default: "-"
   repository:
-    description: "username/repository to get milestone and issues for. Must be public."
+    description: "username/repository to get milestone and issues for. The repository must be public."
     required: true
   labels:
-    description: "Comma-separated labels of issues to include in the release notes"
+    description: "Comma-separated labels of issues to include in the milestone notes."
     required: false
     default: "enhancement, bug"
   ignore:
-    description: "Comma-separated labels of issues to exclude from the release notes"
+    description: "Comma-separated labels of issues to exclude from the milestone notes."
     required: false
     default: "invalid, wontfix"
   filename:
-    description: "Name of the file to write milestone notes to"
+    description: "Name of the file to write milestone notes to."
     required: false
     default: "milestone-notes.md"
 runs:
