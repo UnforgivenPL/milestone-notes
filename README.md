@@ -12,6 +12,30 @@ It is recommended to parse the file to provide meaningful headers, instead of `#
 
 This action uses Docker, Ruby 2.6 and [GitHub API gem](https://github.com/piotrmurach/github).
 
+### Usage
+
+#### Using milestone number
+
+```
+        uses: UnforgivenPL/milestone-notes@v1
+        with:
+          milestone-number: 1
+          repository: ${{ github.repository }}
+```
+
+Replace `1` with whatever is the number of the milestone you want to generate milestone notes for.
+
+#### Matching milestone title 
+
+```
+        uses: UnforgivenPL/milestone-notes@v1
+        with:
+          match-milestone: "your-pattern-here"
+          repository: ${{ github.repository }}
+```
+
+First matching milestone will be used.
+
 ### Why labels? What labels?
 
 Only issues that are labelled are included in the final milestone notes. You are labelling your issues, aren't you?
