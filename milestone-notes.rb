@@ -1,13 +1,6 @@
 # written by Miki Olsz / (c) 2020 Unforgiven.pl
 # released under Apache 2.0 License
 
-# parameters:
-# 0 = version number (default: Next)
-# 1 = owner/repo (default: UnforgivenPL/milestone-notes)
-# 2 = regexp for matching version (default: "^version-number "; use - to enforce default)
-# 3 = comma-separated labels to look for (default: enhancement, bug)
-# 4 = labels to exclude (default: invalid, wontfix)
-# 5 = output filename (default: milestone-notes.md)
 require 'github_api'
 
 unless ARGV[0]
@@ -34,7 +27,7 @@ ignore = (ARGV[4] || 'invalid, wontfix').split(/\s*,\s*/)
 filename = ARGV[5] || 'milestone-notes.md'
 
 puts "milestone-notes for #{owner}/#{repository} - version #{version}"
-puts "(accepted labels: #{labels.keys.join(', ')}; ignored: #{ignore.join(', ')}"
+puts "(accepted labels: #{labels.keys.join(', ')}; ignored: #{ignore.join(', ')})"
 
 issues = Github::Client::Issues.new(user: owner, repo: repository)
 
@@ -59,7 +52,8 @@ if (milestone = issues.milestones.list(state: 'all', auto_pagination: true)
 
   puts "...done; saving file [#{filename}]..."
   File.open(filename, 'w') { |file| file.write(result.join("\n")) }
-  puts '...finished; all done - goodbye!'
+  puts '...finished;'
+  puts 'all done; goodbye!'
 else
   puts "no milestone matching #{regexp} found for version [#{version}], nothing to do; goodbye"
 end
