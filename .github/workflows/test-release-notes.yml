@@ -7,6 +7,6 @@ jobs:
         uses: mikiolsz/milestone-notes@master
         with:
           version-number: "0.1"
-          repository: "mikiolsz/milestone-notes"
+          repository: "UnforgivenPL/milestone-notes"
       - name: Show release notes
         run: cat milestone-notes.md

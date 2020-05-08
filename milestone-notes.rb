@@ -5,7 +5,7 @@
 
 # parameters:
 # 0 = version number (default: Next)
-# 1 = owner/repo (default: mikiolsz/milestone-notes)
+# 1 = owner/repo (default: UnforgivenPL/milestone-notes)
 # 2 = regexp for matching version (default: "^version-number "; use - to enforce default)
 # 3 = comma-separated labels to look for (default: enhancement, bug)
 # 4 = labels to exclude (default: invalid, wontfix)
@@ -17,7 +17,7 @@ unless ARGV[0]
 no parameters provided, which is probably NOT what was intended
 this script supports the following parameters 
   0 = version number                     (default: Next)
-  1 = owner/public repo                  (default: mikiolsz/milestone-notes)
+  1 = owner/public repo                  (default: UnforgivenPL/milestone-notes)
   2 = regexp for matching version        (default: "^version-number "; use - to enforce default)
   3 = comma-separated labels to look for (default: enhancement, bug)
   4 = labels to exclude                  (default: invalid, wontfix)
@@ -26,7 +26,7 @@ HELP
 end
 
 version = ARGV[0] || 'Next'
-owner, repository = (ARGV[1] || 'mikiolsz/milestone-notes').split('/')
+owner, repository = (ARGV[1] || 'UnforgivenPL/milestone-notes').split('/')
 
 regexp = Regexp.new(ARGV[2].nil? || ARGV[2]=='-' ? "^#{version} " : ARGV[2])
 
