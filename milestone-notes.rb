@@ -1,5 +1,3 @@
-#!/bin/ruby
-
 # written by Miki Olsz / (c) 2020 Unforgiven.pl
 # released under Apache 2.0 License
 
