@@ -9,7 +9,7 @@ jobs:
       - name: Generate test release notes
         uses: ./
         with:
-          version-number: "1"
+          match-milestone: "^1 "
           repository: ${{ github.repository }}
       - name: Show release notes
         run: cat milestone-notes.md
