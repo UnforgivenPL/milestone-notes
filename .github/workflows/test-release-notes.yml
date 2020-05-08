@@ -1,0 +1,12 @@
+on: [push]
+jobs:
+  test-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate release notes
+        uses: mikiolsz/milestone-notes@master
+        with:
+          version-number: "0.1"
+          repository: "mikiolsz/milestone-notes"
+      - name: Show release notes
+        run: cat milestone-notes.md
