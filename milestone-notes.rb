@@ -24,7 +24,7 @@ puts "(accepted labels: #{labels.keys.join(', ')}; ignored: #{ignore.join(', ')}
 
 issues = Github::Client::Issues.new(user: owner, repo: repository)
 
-if (milestone = issues.milestones.list(state: 'closed', auto_pagination: true)
+if (milestone = issues.milestones.list(auto_pagination: true)
                       .find { |m| m.title =~ Regexp.new("^#{version} ") })
   puts "fetching closed issues for milestone <#{milestone.title}>, please wait..."
   to_include = issues.list(milestone: milestone.number,
