@@ -33,7 +33,6 @@ runs:
     - ${{ inputs.labels }}
     - ${{ inputs.ignore }}
     - ${{ inputs.filename }}
-  pre-entrypoint: "chmod +x milestone-notes.sh"
   entrypoint: "milestone-notes.sh"
 branding:
   color: blue
