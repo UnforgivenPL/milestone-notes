@@ -6,26 +6,29 @@
 # parameters:
 # 0 = version number (default: Next)
 # 1 = owner/repo (default: mikiolsz/milestone-notes)
-# 2 = comma-separated labels to look for (default: enhancement, bug)
-# 3 = labels to exclude (default: invalid, wontfix)
-# 4 = output filename (default: milestone-notes.md)
+# 2 = regexp for matching version (default: "^version-number "; use - to enforce default)
+# 3 = comma-separated labels to look for (default: enhancement, bug)
+# 4 = labels to exclude (default: invalid, wontfix)
+# 5 = output filename (default: milestone-notes.md)
 require 'github_api'
 
 version = ARGV[0] || 'Next'
 owner, repository = (ARGV[1] || 'mikiolsz/milestone-notes').split('/')
 
-labels = Hash[(ARGV[2] || 'enhancement, bug').split(/\s*,\s*/).collect { |s| [s, []] }]
-ignore = (ARGV[3] || 'invalid, wontfix').split(/\s*,\s*/)
+regexp = Regexp.new(ARGV[2].nil? || ARGV[2]=='-' ? "^#{version} " : ARGV[2])
 
-filename = ARGV[4] || 'milestone-notes.md'
+labels = Hash[(ARGV[3] || 'enhancement, bug').split(/\s*,\s*/).collect { |s| [s, []] }]
+ignore = (ARGV[4] || 'invalid, wontfix').split(/\s*,\s*/)
+
+filename = ARGV[5] || 'milestone-notes.md'
 
 puts "milestone-notes for #{owner}/#{repository} - version #{version}"
 puts "(accepted labels: #{labels.keys.join(', ')}; ignored: #{ignore.join(', ')}"
 
 issues = Github::Client::Issues.new(user: owner, repo: repository)
 
-if (milestone = issues.milestones.list(auto_pagination: true)
-                      .find { |m| m.title =~ Regexp.new("^#{version} ") })
+if (milestone = issues.milestones.list(state: 'all', auto_pagination: true)
+                      .find { |m| regexp.match?(m.title) })
   puts "fetching closed issues for milestone <#{milestone.title}>, please wait..."
   to_include = issues.list(milestone: milestone.number,
                            state: 'closed',
@@ -47,5 +50,5 @@ if (milestone = issues.milestones.list(auto_pagination: true)
   File.open(filename, 'w') { |file| file.write(result.join("\n")) }
   puts '...finished; all done - goodbye!'
 else
-  puts "no milestone found for version #{version}, nothing to do; goodbye"
+  puts "no milestone matching #{regexp} found for version [#{version}], nothing to do; goodbye"
 end
