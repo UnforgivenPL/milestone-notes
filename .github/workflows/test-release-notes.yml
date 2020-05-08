@@ -5,8 +5,8 @@ jobs:
   test-release-notes:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate release notes
-        uses: UnforgivenPL/milestone-notes@${{ github.ref }}
+      - name: Generate test release notes
+        uses: ./
         with:
           version-number: "1"
           repository: ${{ github.repository }}
