@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate release notes
-        uses: mikiolsz/milestone-notes@master
+        uses: UnforgivenPL/milestone-notes@master
         with:
           version-number: "0.1"
           repository: "UnforgivenPL/milestone-notes"
