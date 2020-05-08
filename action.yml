@@ -1,0 +1,38 @@
+name: "Milestone Notes"
+description: "Create a .md file with closed issues based on a milestone that matches a given string."
+inputs:
+  version-number:
+    description: "Version number"
+    required: true
+  match-milestone:
+    description: "Regular expression to match milestone title. By default milestones that start with version number."
+    required: false
+    default: "-"
+  repository:
+    description: "username/repository to get milestone and issues for. Must be public."
+    required: true
+  labels:
+    description: "Comma-separated labels of issues to include in the release notes"
+    required: false
+    default: "enhancement, bug"
+  ignore:
+    description: "Comma-separated labels of issues to exclude from the release notes"
+    required: false
+    default: "invalid, wontfix"
+  filename:
+    description: "Name of the file to write milestone notes to"
+    required: false
+    default: "milestone-notes.md"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.version-number }}
+    - ${{ inputs.repository }}
+    - ${{ inputs.match-milestone }}
+    - ${{ inputs.labels }}
+    - ${{ inputs.ignore }}
+    - ${{ inputs.filename }}
+branding:
+  color: blue
+  icon: list
