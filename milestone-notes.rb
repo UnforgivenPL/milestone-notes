@@ -59,7 +59,7 @@ if milestone
   puts "...found #{to_include.size} issues; generating markup"
   to_include.each do |i|
     i.labels.filter { |l| labels.keys.include?(l.name) }
-     .each { |l| labels[l.name] << "* \\##{i.number} - [#{i.title}](#{i.url})" }
+     .each { |l| labels[l.name] << "* \\##{i.number} - [#{i.title}](#{i.html_url})" }
   end
 
   result = ["# #{milestone.title}"]
